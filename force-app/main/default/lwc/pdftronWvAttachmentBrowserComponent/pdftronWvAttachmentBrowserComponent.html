@@ -1,0 +1,41 @@
+<template>
+  <template if:true={isLoading}>
+    <div class="spinnerContainer">
+      <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    </div>
+  </template>
+  <lightning-card title="Files">
+    <div class="slds-p-around_small">
+      <div class="slds-grid">
+        <div class="slds-col slds-size_10-of-12">
+          <div onkeyup={handleKeyUp}>
+            <lightning-input
+                name="enter-search"
+                label="Search Files"
+                type="search"
+                onchange={handleSearchTerm}
+            ></lightning-input>
+        </div>
+        </div>
+        <div class="slds-col slds-size_2-of-12">
+          <lightning-button variant="brand" label="Search" icon-name="utility:search" title="Search for files by title"
+          onclick={handleSearch} class="slds-m-around_small slds-p-top_small slds-align_absolute-center">
+        </lightning-button>
+        </div>
+      </div>
+      <div>
+        <lightning-datatable key-field="Id" data={contentVersions} sorted-by={sortedBy} sorted-direction={sortedDirection}
+          columns={columns} onrowaction={handleRowAction} onsort={updateColumnSorting} onrowselection={getSelectedName}>
+        </lightning-datatable>
+        <template if:false={hasRecords}>
+          <p class="slds-p-around_small slds-align_absolute-center">Start typing to search for files.</p>
+        </template>
+      </div>
+      <div>
+        <lightning-button variant="brand" label="Open File(s)" title="Open File or Merge multiple files and open them"
+          onclick={handleClick} class="slds-m-around_small slds-align_absolute-center" disabled={isViewButtonEnabled}>
+        </lightning-button>
+      </div>
+    </div>
+  </lightning-card>
+</template>
