@@ -150,7 +150,7 @@ const downloadFile = (blob, fileName) => {
     setTimeout(() => URL.revokeObjectURL(link.href), 7000);
 };
 
-window.addEventListener("documentLoaded", () => {
+window.addEventListener("documentLoaded", async () => {
     //trigger WebViewer prompt for print
     readerControl.print();
 
