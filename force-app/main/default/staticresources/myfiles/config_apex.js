@@ -150,31 +150,6 @@ const downloadFile = (blob, fileName) => {
     setTimeout(() => URL.revokeObjectURL(link.href), 7000);
 };
 
-window.addEventListener("documentLoaded", async () => {
-    //trigger WebViewer prompt for print
-    readerControl.print();
-
-    //get current doc, extract data, convert to blob
-    const doc = readerControl.documentViewer.getDocument();
-    const data = await doc.getFileData();
-    const arr = new Uint8Array(data);
-    const blob = new Blob([arr], { type: 'application/pdf' });
-    
-    //download and name blob
-    downloadFile(blob, "myfile.pdf"); 
-});
-
-window.addEventListener("viewerLoaded", () => {
-    //disable UI elements programmatically
-    readerControl.disableElements([
-        'toolbarGroup-Annotate', //hide annotate
-        'toolbarGroup-Shapes', //hide shapes
-        'toolbarGroup-Insert', //hide insert
-        'toolbarGroup-Edit' //hide edit
-        //'anything-else', // right-click + Inspect element -> use data-element html attribute and add it to array for hiding UI components
-    ]);
-});
-
 window.addEventListener("message", receiveMessage, false);
 
 async function receiveMessage(event) {
